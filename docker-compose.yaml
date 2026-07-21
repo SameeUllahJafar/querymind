@@ -1,0 +1,33 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+       POSTGRES_USER: querymind
+       POSTGRES_PASSWORD: querymind
+       POSTGRES_DB: querymind
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "querymind"]
+      interval: 10s
+      timeout: 5s
+      retries: 5     
+
+  backend:
+     build: ./backend
+     environment:
+       DATABASE_URL: postgresql+asyncpg://querymind:querymind@db:5432/querymind
+       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+     ports:
+        - "8000:8000"
+     volumes:
+       - ./backend:/app
+     depends_on:
+       db:
+         condition: service_healthy
+     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  pgdata:
