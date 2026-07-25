@@ -5,3 +5,4 @@ sqlalchemy[asyncio]>=2.0
 asyncpg>=0.30
 anthropic>=0.40
 pgvector>=0.3
+sentence-transformers>=3.0
