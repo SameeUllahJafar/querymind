@@ -1,10 +1,10 @@
-from sentence_transformers import SentenceTransformer
+
 from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import SchemaEmbedding
+from app.services.embedding import embed_text
 
-_model = SentenceTransformer("all-MiniLM-L6-v2")
 
 
 def _describe_table(table: dict) -> str:
@@ -29,7 +29,7 @@ async def embed_schema(session: AsyncSession, tables: list[dict]) -> None:
 
     for table in tables:
         description = _describe_table(table)
-        vector = _model.encode(description).tolist()
+        vector = embed_text(description)
         session.add(
             SchemaEmbedding(
                 table_name=table["name"],

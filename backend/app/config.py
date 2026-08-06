@@ -5,8 +5,8 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     database_url: str = "postgresql+asyncpg://querymind:querymind@localhost:5432/querymind"
-    anthropic_api_key: str = ""
-    anthropic_model: str = "claude-opus-4-8"
+    gemini_api_key: str = ""
+    gemini_model: str = "gemini-3.5-flash"
     cors_origins: list[str] = ["http://localhost:3000"]
 
     

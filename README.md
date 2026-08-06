@@ -14,7 +14,7 @@ A natural-language-to-SQL analytics copilot. Connect a database, ask a question 
 ## Planned stack
 
 - **Backend**: Python, FastAPI
-- **LLM / RAG**: Claude API (Anthropic SDK), pgvector for schema embeddings
+- **LLM / RAG**: Google Gemini API, pgvector for schema embeddings
 - **Database**: PostgreSQL
 - **Frontend**: React, TypeScript
 - **Infra**: Docker, deployed on Render/Fly.io + Vercel
